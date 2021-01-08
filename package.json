@@ -1,0 +1,29 @@
+{
+  "name": "gtm-batch-delete",
+  "version": "1.0.0",
+  "description": "Node gadget to delete tags from a GTM container JSON file, specified by an array of tag IDs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nullish/gtm-batch-delete.git"
+  },
+  "keywords": [
+    "google",
+    "tag",
+    "manager",
+    "nodejs"
+  ],
+  "author": "Nullish",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/nullish/gtm-batch-delete/issues"
+  },
+  "homepage": "https://github.com/nullish/gtm-batch-delete#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "yargs": "^16.2.0"
+  }
+}
