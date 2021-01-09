@@ -2,6 +2,9 @@
 const gtmBatchDelete = (...args) => {
 	const yargs = require('yargs');
 	const fs = require('fs');
+	const path = require('path');
+	const cleanDeep = require('clean-deep');
+	const colors = require('colors'); // Colours for console output
 
 	// Command line arguments from yargs
 	const argv = yargs
@@ -19,6 +22,7 @@ const gtmBatchDelete = (...args) => {
 
 	// Get parameters from CLI or module function call
 	const containerFile = args[0] || argv.container;
+	const fname = path.basename(containerFile);
 	const tagList = args[1] || argv.tags;
 
 	// Load container to JS object
@@ -32,14 +36,15 @@ const gtmBatchDelete = (...args) => {
 	for (tag of tagList) {
 		for (i = 0; i < gtm.containerVersion.tag.length; i++) {
 			if (gtm.containerVersion.tag[i].tagId == tag) {
-				// console.log(gtm.containerVersion.tag[i]);
 				arrIndexes.push(i);
 			}
 		}
 	}
-	console.log(arrIndexes);
 	arrIndexes.forEach(e => delete gtm.containerVersion.tag[e]);
-	console.log(gtm.containerVersion.tag);
+	const cleanGTM = cleanDeep(gtm); // removes residual null values after tags have been deleted.
+	const gtmOut = JSON.stringify(cleanGTM);
+	fs.writeFileSync(`./output/${fname}`, gtmOut); // write to local file
+	console.log("Your cleansed GTM container file is here: ".green +  "./output/" + fname);
 }
 
 module.exports = gtmBatchDelete;
