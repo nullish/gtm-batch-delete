@@ -24,6 +24,7 @@
   "homepage": "https://github.com/nullish/gtm-batch-delete#readme",
   "dependencies": {
     "clean-deep": "^3.4.0",
+    "colors": "^1.4.0",
     "fs": "0.0.1-security",
     "jmespath": "^0.15.0",
     "yargs": "^16.2.0"
