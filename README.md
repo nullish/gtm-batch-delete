@@ -7,12 +7,12 @@ Requires [NodeJS](https://nodejs.org/)
 
 ## Optional installation via NPM
 
-`npm i @nullish/gtm-batch-delete`
+`npm i gtm-batch-delete`
 
 ### Imported as a package
 
 ```javascript
-const gtmBatchDelete = require('@nullish/gtm-batch-delete')
+const gtmBatchDelete = require('gtm-batch-delete')
 const cleansedContainer = gtmBatchDelete("./path/to/container.json", "1,2,3")
 ```
 
