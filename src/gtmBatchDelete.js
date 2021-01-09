@@ -33,13 +33,16 @@ const gtmBatchDelete = (...args) => {
 
 	// Check tags against list and remove
 	let arrIndexes = [];
-	for (tag of tagList) {
+	for (tag of arrTags) {
 		for (i = 0; i < gtm.containerVersion.tag.length; i++) {
 			if (gtm.containerVersion.tag[i].tagId == tag) {
 				arrIndexes.push(i);
+				console.log(`ID ${gtm.containerVersion.tag[i].tagId} index: ${i}`);
 			}
 		}
 	}
+
+	console.log(arrIndexes);
 	arrIndexes.forEach(e => delete gtm.containerVersion.tag[e]);
 	const cleanGTM = cleanDeep(gtm); // removes residual null values after tags have been deleted.
 	const gtmOut = JSON.stringify(cleanGTM);
