@@ -22,7 +22,24 @@ const gtmBatchDelete = (...args) => {
 	const tagList = args[1] || argv.tags;
 
 	// Load container to JS object
+	const gtm = JSON.parse(fs.readFileSync(containerFile));
+	
+	// Load tag IDs 
+	const arrTags = tagList.split(",");
 
+	// Check tags against list and remove
+	let arrIndexes = [];
+	for (tag of tagList) {
+		for (i = 0; i < gtm.containerVersion.tag.length; i++) {
+			if (gtm.containerVersion.tag[i].tagId == tag) {
+				// console.log(gtm.containerVersion.tag[i]);
+				arrIndexes.push(i);
+			}
+		}
+	}
+	console.log(arrIndexes);
+	arrIndexes.forEach(e => delete gtm.containerVersion.tag[e]);
+	console.log(gtm.containerVersion.tag);
 }
 
 module.exports = gtmBatchDelete;
