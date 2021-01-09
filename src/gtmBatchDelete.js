@@ -43,8 +43,14 @@ const gtmBatchDelete = (...args) => {
 	arrIndexes.forEach(e => delete gtm.containerVersion.tag[e]);
 	const cleanGTM = cleanDeep(gtm); // removes residual null values after tags have been deleted.
 	const gtmOut = JSON.stringify(cleanGTM);
+
+	if (argv.container) {
+		// If launched from CLI, output is written to local file system.
 	fs.writeFileSync(`./output/${fname}`, gtmOut); // write to local file
 	console.log("Your cleansed GTM container file is here: ".green +  "./output/" + fname);
+}
+// Return JS object to be used by functions
+return cleanGTM;
 }
 
 module.exports = gtmBatchDelete;
