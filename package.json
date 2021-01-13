@@ -1,6 +1,6 @@
 {
   "name": "gtm-batch-delete",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Node gadget to delete elements from a GTM container JSON file, specified by list of element IDs or names.",
   "main": "index.js",
   "scripts": {
