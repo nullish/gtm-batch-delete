@@ -16,11 +16,15 @@ Requires [NodeJS](https://nodejs.org/)
 ```javascript
 const gtmBatchDelete = require('gtm-batch-delete')
 const cleansedContainer = gtmBatchDelete("./path/to/container.json", "1,2,3")
+// Or if you want to use tag names instead.
+const cleansedContainer = gtmBatchDelete("./path/to/container.json", "tag one,tag two,tag three")
 ```
 
 ### Run via CLI
 
 ```bash
 node gtmBatchDelete.js --container ./path/to/container.json --tags 1,2,3
+# Or if you want to use tag names instead.
+node gtmBatchDelete.js --container ./path/to/container.json --tags 'tag one,tag two,tag three'
 ```
 

@@ -15,7 +15,7 @@ const gtmBatchDelete = (...args) => {
 	})
 	.option('tags', {
 		alias: 't',
-		describe: 'Comma separated list of tag IDs',
+		describe: 'Comma separated list of tag IDs or tag names. Ensure you enclose the list in invderted commas.',
 		type: 'string'
 	})
 	.argv
@@ -36,7 +36,8 @@ const gtmBatchDelete = (...args) => {
 	console.log("Removing tags... ");
 	for (tag of arrTags) {
 		for (i = 0; i < gtm.containerVersion.tag.length; i++) {
-			if (gtm.containerVersion.tag[i].tagId == tag) {
+			// Try to match tag in container either by ID or by name
+			if (gtm.containerVersion.tag[i].tagId == tag || gtm.containerVersion.tag[i].name == tag) {
 				arrIndexes.push(i);
 				console.log(`${gtm.containerVersion.tag[i].tagId},${gtm.containerVersion.tag[i].name}`);
 			}
