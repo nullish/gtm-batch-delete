@@ -1,7 +1,7 @@
 # gtm-batch-delete
-Node gadget to delete tags from a GTM container JSON file, specified by an array of tag IDs.
+Node gadget to delete elements from a GTM container JSON file, specified by an array of element IDs or element names.
 
-[Export a Google Tag Manager container](https://support.google.com/tagmanager/answer/6106997) then import a new version minus the tags you've specified.
+[Export a Google Tag Manager container](https://support.google.com/tagmanager/answer/6106997) then import a new version minus the elements you've specified.
 
 ## Pre-requisits
 
@@ -15,16 +15,22 @@ Requires [NodeJS](https://nodejs.org/)
 
 ```javascript
 const gtmBatchDelete = require('gtm-batch-delete')
-const cleansedContainer = gtmBatchDelete("./path/to/container.json", "1,2,3")
+// To delete tags by ID
+const cleansedContainer = gtmBatchDelete("./path/to/container.json", "tag", "1,2,3")
+// To delete triggers by ID
+const cleansedContainer = gtmBatchDelete("./path/to/container.json", "trigger", "1,2,3")
 // Or if you want to use tag names instead.
-const cleansedContainer = gtmBatchDelete("./path/to/container.json", "tag one,tag two,tag three")
+const cleansedContainer = gtmBatchDelete("./path/to/container.json", "tag", "tag one,tag two,tag three")
 ```
 
 ### Run via CLI
 
 ```bash
-node gtmBatchDelete.js --container ./path/to/container.json --tags 1,2,3
-# Or if you want to use tag names instead.
+# To delete tags
+node gtmBatchDelete.js --container ./path/to/container.json --type 'tag' --elements 1,2,3
+# To delete triggers
+node gtmBatchDelete.js --container ./path/to/container.json --trigger --elements 1,2,3
+# Or if you want to use tag names instead
 node gtmBatchDelete.js --container ./path/to/container.json --tags 'tag one,tag two,tag three'
 ```
 

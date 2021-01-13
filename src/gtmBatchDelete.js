@@ -13,9 +13,13 @@ const gtmBatchDelete = (...args) => {
 		describe: 'Path to GTM container JSON file',
 		type: 'string'
 	})
-	.option('tags', {
+	.option('type', {
 		alias: 't',
-		describe: 'Comma separated list of tag IDs or tag names. Ensure you enclose the list in invderted commas.',
+		describe: 'Type of element to be deleted. E.g. "tag"',
+		type: 'string'
+	}).option('elements', {
+		alias: 'e',
+		describe: 'Comma separated list of GTM element IDs or element names. Ensure you enclose the list in invderted commas.',
 		type: 'string'
 	})
 	.argv
@@ -23,7 +27,9 @@ const gtmBatchDelete = (...args) => {
 	// Get parameters from CLI or module function call
 	const containerFile = args[0] || argv.container;
 	const fname = path.basename(containerFile);
-	const tagList = args[1] || argv.tags;
+	const elementType = args[1] || argv.type;
+	const elementId = elementType + "Id";
+	const tagList = args[2] || argv.elements;
 
 	// Load container to JS object
 	const gtm = JSON.parse(fs.readFileSync(containerFile));
@@ -35,16 +41,17 @@ const gtmBatchDelete = (...args) => {
 	let arrIndexes = [];
 	console.log("Removing tags... ");
 	for (tag of arrTags) {
-		for (i = 0; i < gtm.containerVersion.tag.length; i++) {
+		for (i = 0; i < gtm.containerVersion[elementType].length; i++) {
 			// Try to match tag in container either by ID or by name
-			if (gtm.containerVersion.tag[i].tagId == tag || gtm.containerVersion.tag[i].name == tag) {
+			// console.log(`ID: ${gtm.containerVersion[elementType][i].tagId} NAME: ${gtm.containerVersion[elementType][i].name}`)
+			if (gtm.containerVersion[elementType][i][elementId] == tag || gtm.containerVersion[elementType][i].name == tag) {
 				arrIndexes.push(i);
-				console.log(`${gtm.containerVersion.tag[i].tagId},${gtm.containerVersion.tag[i].name}`);
+				console.log(`${gtm.containerVersion[elementType][i][elementId]},${gtm.containerVersion[elementType][i].name}`);
 			}
 		}
 	}
 
-	arrIndexes.forEach(e => delete gtm.containerVersion.tag[e]);
+	arrIndexes.forEach(e => delete gtm.containerVersion[elementType][e]);
 	const cleanGTM = cleanDeep(gtm); // removes residual null values after tags have been deleted.
 	const gtmOut = JSON.stringify(cleanGTM);
 
