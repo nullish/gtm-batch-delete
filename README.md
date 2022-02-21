@@ -3,7 +3,7 @@ Node gadget to delete elements from a GTM container JSON file, specified by an a
 
 [Export a Google Tag Manager container](https://support.google.com/tagmanager/answer/6106997) then import a new version minus the elements you've specified.
 
-## Pre-requisits
+## Pre-requisites
 
 Requires [NodeJS](https://nodejs.org/)
 
@@ -29,8 +29,8 @@ const cleansedContainer = gtmBatchDelete("./path/to/container.json", "tag", "tag
 # To delete tags
 node gtmBatchDelete.js --container ./path/to/container.json --type 'tag' --elements 1,2,3
 # To delete triggers
-node gtmBatchDelete.js --container ./path/to/container.json --trigger --elements 1,2,3
+node gtmBatchDelete.js --container ./path/to/container.json --type 'trigger' --elements 1,2,3
 # Or if you want to use tag names instead
-node gtmBatchDelete.js --container ./path/to/container.json --tags 'tag one,tag two,tag three'
+node gtmBatchDelete.js --container ./path/to/container.json --type 'tag' --elements 'tag one,tag two,tag three'
 ```
 
